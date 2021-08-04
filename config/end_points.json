@@ -1,0 +1,14 @@
+[
+  {
+  "endpoint": "gather",
+    "keys": {
+      "record_time": "5050"
+    }
+  },
+  {
+    "endpoint": "pass_through",
+    "keys": {
+      "record_time": "3000"
+    }
+  }
+]
