@@ -6,7 +6,7 @@ module Mock
       helpers ConfigHelpers
 
       desc 'Dumps status to a file. Which can be used later to validate'
-      post '/status/index' do
+      post '/status_callback' do
         data = params
         filename_part = params[:CallSid] || "no-sid-#{Time.now}"
         File.open("./callback_json/#{filename_part}.json","w") {|f| f.puts data.to_json}
