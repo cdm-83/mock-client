@@ -30,7 +30,14 @@ module Mock
           }
         }
       end
-
+      
+      desc 'Connect API'
+      get '/connect' do
+        {
+          "from_number": params[:from_number],
+          "content-type": "text/plain"
+        }
+      end
     end
   end
 end
