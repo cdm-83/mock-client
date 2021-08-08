@@ -10,5 +10,12 @@
     "keys": {
       "record_time": "3000"
     }
+  },
+  {
+    "endpoint": "programmable_connect",
+    "keys": {
+      "max_ringing": 30,
+      "max_conversation": 3000
+    }
   }
 ]

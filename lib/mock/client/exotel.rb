@@ -49,14 +49,30 @@ module Mock
           "outgoing_phone_number": params[:outgoing_phone_number],
           "record": "true",
           "recording_channels": "dual",
-          "max_ringing_duration":45,
-          "max_conversation_duration":3600,
+          "max_ringing_duration": config("programmable_connect")["max_ringing"],
+          "max_conversation_duration": config("programmable_connect")["max_conversation"],
           "music_on_hold": {
             "type": "operator_tone"
           },
           "start_call_playback": {
             "type": "text",
             "value": "This text would be spoken out to the callee"
+          }
+        }
+      end
+      
+      desc 'Gather Applet'
+      get '/gather_applet' do
+       {
+        "gather_prompt": {
+            "text": "Please enter your mobile number",
+          },
+        "max_input_digits": 10,
+        "finish_on_key": "#",
+        "input_timeout": 6,
+        "repeat_menu": 2,
+        "repeat_gather_prompt": {
+            "text": "It seems that you have not provided any input, please try again."
           }
         }
       end
