@@ -38,6 +38,29 @@ module Mock
           "content-type": "text/plain"
         }
       end
+      
+      desc 'Programmable Connect API'
+      get '/programmable_connect' do
+        {
+          "fetch_after_attempt": "false",
+          "destination": {
+            "numbers":  [params[:destination_numbers]]
+          },
+          "outgoing_phone_number": params[:outgoing_phone_number],
+          "record": "true",
+          "recording_channels": "dual",
+          "max_ringing_duration":45,
+          "max_conversation_duration":3600,
+          "music_on_hold": {
+            "type": "operator_tone"
+          },
+          "start_call_playback": {
+            "type": "text",
+            "value": "This text would be spoken out to the callee"
+          }
+        }
+      end
+      
     end
   end
 end
