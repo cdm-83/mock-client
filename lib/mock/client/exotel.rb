@@ -6,7 +6,7 @@ module Mock
       helpers ConfigHelpers
 
       desc 'Dumps status to a file. Which can be used later to validate'
-      post '/status_callback' do
+        post '/status_callback' do
         data = params
         filename_part = params[:CallSid] || "no-sid-#{Time.now}"
         File.open("./callback_json/#{filename_part}.json","w") {|f| f.puts data.to_json}
@@ -76,6 +76,18 @@ module Mock
           }
         }
       end
+
+      desc 'Pass  through'
+      get '/pass_through' do
+        {
+          "gather_prompt": {
+            "text": "Please enter your mobile number",
+          },
+          "max_input_digits": 10,
+        }
+        status config("pass_through")["status"]
+      end
+
       
     end
   end
