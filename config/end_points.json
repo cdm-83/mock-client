@@ -9,7 +9,7 @@
     "endpoint": "pass_through",
     "keys": {
       "record_time": "3000",
-      "status": 301
+      "status": 302
     }
   },
   {

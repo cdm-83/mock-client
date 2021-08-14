@@ -83,12 +83,18 @@ module Mock
           "gather_prompt": {
             "text": "Please enter your mobile number",
           },
-          "max_input_digits": 10,
+          "status": params[:from_number],
         }
         status config("pass_through")["status"]
       end
 
-      
+      desc 'Dumps status to a file using time format. Which can be used later to validate'
+      post '/statuscallback' do
+        data = params
+        filename_part = params[:CallSid] + Time.now.strftime("_%Y%m%d%H%m%s").to_s || "no-sid-#{Time.now}"
+        File.open("./callback_json/#{filename_part}.json","w") {|f| f.puts data.to_json}
+        params
+      end
     end
   end
 end
