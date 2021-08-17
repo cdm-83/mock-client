@@ -9,7 +9,7 @@ module Mock
         post '/status_callback' do
         data = params
         filename_part = params[:CallSid] || "no-sid-#{Time.now}"
-        File.open("./callback_json/#{filename_part}.json","w") {|f| f.puts data.to_json}
+        File.open("./callback_json/#{filename_part}.json","a+") {|f| f.puts data.to_json}
         params
       end
 
