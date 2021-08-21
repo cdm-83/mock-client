@@ -39,12 +39,21 @@ module Mock
         }
       end
       
+      @@c=-1
+      @@b=0
       desc 'Programmable Connect API'
       get '/programmable_connect' do
+      @@b=params[:destination_numbers].split(',').length
+      if @@c<@@b
+      @@c+=1
+      end
+      if @@c>=@@b
+       @@c=0
+      end
         {
           "fetch_after_attempt": "false",
           "destination": {
-            "numbers":  [params[:destination_numbers]]
+            "numbers": params[:destination_numbers].split(',')[@@c]
           },
           "outgoing_phone_number": params[:outgoing_phone_number],
           "record": "true",
