@@ -31,12 +31,21 @@ module Mock
         }
       end
       
+      @@c=-1
+      @@b=0
       desc 'Connect API'
       get '/connect' do
-        {
-          "from_number": params[:from_number],
+      @@b=params[:from_number].split(',').length
+      if @@c<@@b
+      @@c+=1
+      end
+      if @@c>=@@b
+       @@c=0
+      end
+         {
+          "from_number": params[:from_number].split(',')[@@c],
           "content-type": "text/plain"
-        }
+         }
       end
       
       @@c=-1
@@ -53,7 +62,7 @@ module Mock
         {
           "fetch_after_attempt": "false",
           "destination": {
-            "numbers": params[:destination_numbers].split(',')[@@c]
+            "numbers": [params[:destination_numbers].split(',')[@@c]]
           },
           "outgoing_phone_number": params[:outgoing_phone_number],
           "record": "true",
