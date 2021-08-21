@@ -91,7 +91,7 @@ module Mock
       desc 'Dumps responses to the file. Which can be used later to validate using filename'
       post '/callback_response' do
         data = params
-        filename_part = params[:file_name]
+        filename_part = params[:CallSid] + "_01".to_json
         File.open("./callback_json/#{filename_part}.json","a+") {|f| f.puts data.to_json}
       end
     end
