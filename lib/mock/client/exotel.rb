@@ -88,12 +88,11 @@ module Mock
         status config("pass_through")["status"]
       end
 
-      desc 'Dumps status to a file using time format. Which can be used later to validate'
-      post '/statuscallback' do
+      desc 'Dumps responses to the file. Which can be used later to validate using filename'
+      post '/callback_response' do
         data = params
-        filename_part = params[:CallSid] + Time.now.strftime("_%Y%m%d%H%m%s").to_s || "no-sid-#{Time.now}"
-        File.open("./callback_json/#{filename_part}.json","w") {|f| f.puts data.to_json}
-        params
+        filename_part = params[:file_name]
+        File.open("./callback_json/#{filename_part}.json","a+") {|f| f.puts data.to_json}
       end
     end
   end
