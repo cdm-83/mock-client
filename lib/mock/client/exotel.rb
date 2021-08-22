@@ -111,11 +111,13 @@ module Mock
         status config("pass_through")["status"]
       end
 
-      desc 'Dumps responses to the file. Which can be used later to validate using filename'
-      get '/callback_response' do
+      desc 'Dumps status to a file. Which can be used later to validate'
+      get '/callback_response_url' do
+        puts params.inspect
         data = params
-        filename_part = params[:CallSid] + "_01".to_json
+        filename_part = params[:CallSid]  || "no-sid-#{Time.now}"
         File.open("./callback_json/#{filename_part}.json","a+") {|f| f.puts data.to_json}
+        params
       end
     end
   end
