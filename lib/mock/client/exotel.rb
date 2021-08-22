@@ -62,7 +62,7 @@ module Mock
         {
           "fetch_after_attempt": params[:fetch_after_attempt],
           "destination": {
-            "numbers": [params[:destination_numbers]]
+            "numbers": [params[:destination_numbers].split(',')[@@c]]
           },
           "outgoing_phone_number": params[:outgoing_phone_number],
           "record": "true",
