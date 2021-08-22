@@ -60,9 +60,9 @@ module Mock
        @@c=0
       end
         {
-          "fetch_after_attempt": "true",
+          "fetch_after_attempt": params[:fetch_after_attempt],
           "destination": {
-            "numbers": [params[:destination_numbers].split(',')[@@c]]
+            "numbers": [params[:destination_numbers]]
           },
           "outgoing_phone_number": params[:outgoing_phone_number],
           "record": "true",
@@ -75,7 +75,12 @@ module Mock
           "start_call_playback": {
             "type": "text",
             "value": "This text would be spoken out to the callee"
-          }
+          },
+          "parallel_ringing": {
+           "activate": true,
+           "max_parallel_attempts": params[:max_parallel_attempts]
+          },
+          "dial_passthru_event_url": params[:dial_passthru_event_url]
         }
       end
       

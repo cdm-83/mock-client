@@ -15,7 +15,7 @@
   {
     "endpoint": "programmable_connect",
     "keys": {
-      "max_ringing": 30,
+      "max_ringing": 60,
       "max_conversation": 3000
     }
   }
