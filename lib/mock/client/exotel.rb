@@ -60,7 +60,7 @@ module Mock
        @@c=0
       end
         {
-          "fetch_after_attempt": "false",
+          "fetch_after_attempt": "true",
           "destination": {
             "numbers": [params[:destination_numbers].split(',')[@@c]]
           },
