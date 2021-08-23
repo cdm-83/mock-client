@@ -122,10 +122,16 @@ module Mock
       
       desc 'Dumps status to a file. Which can be used later to validate'
       get '/response_data_url' do
-        puts params.inspect
         data = params
         filename_part = params[:filename]  || "no-sid-#{Time.now}"
         File.open("./callback_json/#{filename_part}.json","a+") {|f| f.puts data.to_json}
+        params
+      end
+      
+      desc 'truncate the data in the file'
+      post '/truncate_response_data' do
+        filename_part = params[:filename]  || "no-sid-#{Time.now}"
+        File.open("./callback_json/#{filename_part}.json","w+") {|file| file.truncate(0) }
         params
       end
     end
