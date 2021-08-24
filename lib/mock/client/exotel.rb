@@ -43,7 +43,7 @@ module Mock
        @@c=0
       end
          {
-          "from_number": params[:from_number].split(',')[@@c],
+          "from_number": params[:from_number],
           "content-type": "text/plain"
          }
       end
