@@ -1,0 +1,16 @@
+services:
+  api:
+    image: exoteltd21/mock-client-api
+    volumes:
+      - ./tmp/callback_json:/var/www/ruby/mock-client/callback_json
+    ports:
+      - "3000:3000"
+    command: bash -c "bundle exec puma"
+  web:
+    image: exoteltd21/mock-client-nginx
+    volumes:
+      - ./tmp/callback_json:/var/www/ruby/mock-client/callback_json
+    ports:
+      - "8080:80"
+    depends_on:
+      - api

@@ -7,3 +7,4 @@ gemspec
 
 gem 'grape'
 gem 'grape-swagger'
+gem 'puma'
