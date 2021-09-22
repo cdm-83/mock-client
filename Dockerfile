@@ -1,2 +1,5 @@
-from 2.7.4-slim
-RUN 
+from ruby
+COPY ./mock-client/ /var/www/ruby
+WORKDIR /var/www/ruby/mock-client/
+CMD ["puma"]
+
