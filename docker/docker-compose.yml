@@ -1,3 +1,4 @@
+version: "3"
 services:
   api:
     image: exoteltd21/mock-client-api
