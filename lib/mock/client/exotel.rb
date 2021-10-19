@@ -110,6 +110,13 @@ module Mock
         }
         status config("pass_through")["status"]
       end
+      
+      desc 'Pass  through code for different status code'
+      get '/passthrough' do
+        {
+          "status": params[:status]
+        }
+      end
 
       desc 'Dumps status to a file. Which can be used later to validate'
       get '/callback_response_url' do
