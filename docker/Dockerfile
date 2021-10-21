@@ -1,4 +1,4 @@
-from ruby
+from ruby:2.7.4
 RUN apt-get update -qq && apt-get install -y coreutils
 WORKDIR /var/www/ruby/mock-client/
 COPY ./mock-client/ /var/www/ruby/mock-client/
