@@ -35,6 +35,9 @@ module Mock
       @@b=0
       desc 'Connect API'
       get '/connect' do
+      data = params
+      filename_part = "connect" || "no-sid-#{Time.now}"
+      File.open("./callback_json/#{filename_part}.json","a+") {|f| f.puts data.to_json}
       @@b=params[:from_number].split(',').length
       if @@c<@@b
       @@c+=1
@@ -52,7 +55,11 @@ module Mock
       @@b=0
       desc 'Programmable Connect API'
       get '/programmable_connect' do
-      @@b=params[:destination_numbers].split(',').length
+      
+      data = params
+      filename_part = "programmable_connect" || "no-sid-#{Time.now}"
+      File.open("./callback_json/#{filename_part}.json","a+") {|f| f.puts data.to_json}
+      @@b=params[:numbers].split(',').length
       if @@c<@@b
       @@c+=1
       end
@@ -62,60 +69,61 @@ module Mock
         {
           "fetch_after_attempt": params[:fetch_after_attempt],
           "destination": {
-            "numbers": [params[:destination_numbers].split(',')[@@c]]
+            "numbers": [params[:numbers].split(',')[@@c]]
           },
           "outgoing_phone_number": params[:outgoing_phone_number],
-          "record": "true",
-          "recording_channels": "dual",
-          "max_ringing_duration": config("programmable_connect")["max_ringing"],
-          "max_conversation_duration": config("programmable_connect")["max_conversation"],
+          "record": params[:record],
+          "recording_channels": params[:recording_channels],
+          "max_ringing_duration":  params[:max_ringing_duration],
+          "max_conversation_duration": params[:max_conversation_duration],
           "music_on_hold": {
-            "type": "operator_tone"
+            "type": params[:music_on_hold_text],
+            "value": params[:music_on_hold_value]
           },
           "start_call_playback": {
-            "type": "text",
-            "value": "This text would be spoken out to the callee"
+            "type": params[:start_call_playback_text],
+            "value": params[:start_call_playback_value]
           },
           "parallel_ringing": {
-           "activate": true,
+           "activate": params[:parallel_ringing_activate],
            "max_parallel_attempts": params[:max_parallel_attempts]
           },
           "dial_passthru_event_url": params[:dial_passthru_event_url]
         }
+	
+   
       end
       
       desc 'Gather Applet'
       get '/gather_applet' do
+      
+      data = params
+      filename_part = "gather_applet" || "no-sid-#{Time.now}"
+      File.open("./callback_json/#{filename_part}.json","a+") {|f| f.puts data.to_json}
        {
         "gather_prompt": {
-            "text": "Please enter your mobile number",
+            "text":  params[:gather_prompt_text],
+            "audio_url": params[:gather_prompt_audio_url]
           },
-        "max_input_digits": 10,
-        "finish_on_key": "#",
-        "input_timeout": 6,
-        "repeat_menu": 2,
+        "max_input_digits":  params[:max_input_digits],
+        "finish_on_key": params[:finish_on_key],
+        "input_timeout": params[:input_timeout],
+        "repeat_menu": params[:repeat_menu],
         "repeat_gather_prompt": {
-            "text": "It seems that you have not provided any input, please try again."
+            "text":  params[:repeat_gather_prompt_text],
+            "audio_url": params[:repeat_gather_prompt_audio_url]
           }
         }
       end
-
-      desc 'Pass  through'
-      get '/pass_through' do
-        {
-          "gather_prompt": {
-            "text": "Please enter your mobile number",
-          },
-          "status": params[:from_number],
-        }
-        status config("pass_through")["status"]
-      end
       
       desc 'Pass  through code for different status code'
-      get '/passthrough' do
-        {
-          "status": params[:status]
-        }
+      get '/passthru' do
+      	 data = params
+         filename_part = "gather_applet" || "no-sid-#{Time.now}"
+         File.open("./callback_json/#{filename_part}.json","a+") {|f| f.puts data.to_json}
+	 params[:status].to_i
+	 
+	   
       end
 
       desc 'Dumps status to a file. Which can be used later to validate'
