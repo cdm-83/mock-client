@@ -5,11 +5,28 @@
       "record_time": "4050"
     }
   },
-  {
-    "endpoint": "pass_through",
+    {
+    "endpoint": "passthru_302",
     "keys": {
-      "record_time": "3000",
       "status": 302
+    }
+  },
+    {
+    "endpoint": "passthru_200",
+    "keys": {
+      "status": 200
+    }
+  },
+  {
+    "endpoint": "passthru_404",
+    "keys": {
+      "status": 404
+    }
+  },
+  {
+    "endpoint": "passthru_500",
+    "keys": {
+      "status": 500
     }
   },
   {

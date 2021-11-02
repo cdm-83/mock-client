@@ -117,13 +117,32 @@ module Mock
       end
       
       desc 'Pass  through code for different status code'
-      get '/passthru' do
+      get '/passthru_applet' do
       	 data = params
          filename_part = "passthru_applet" || "no-sid-#{Time.now}"
          File.open("./callback_json/#{filename_part}.json","a+") {|f| f.puts data.to_json}
-	 params[:status].to_i
+	 params[:status]
 	 
 	   
+      end
+      
+      desc 'Pass  through code for different status code'      
+      get '/passthru' do        
+         data = params
+         filename_part = "passthru_applet" || "no-sid-#{Time.now}"
+         File.open("./callback_json/#{filename_part}.json","a+") {|f| f.puts data.to_json}
+         status = params[:status]
+          if status == "200"
+             status config("passthru_200")["status"]
+          elsif status == "302"
+            status config("passthru_302")["status"]
+          elsif status == "404"
+            status config("passthru_404")["status"]
+          elsif status == "500"
+            status config("passthru_500")["status"]
+          else
+             status config("passthru_200")["status"]
+          end
       end
 
       desc 'Dumps status to a file. Which can be used later to validate'
