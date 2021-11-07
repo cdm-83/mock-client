@@ -102,16 +102,14 @@ module Mock
       File.open("./callback_json/#{filename_part}.json","a+") {|f| f.puts data.to_json}
        {
         "gather_prompt": {
-            "text":  params[:gather_prompt_text],
-            "audio_url": params[:gather_prompt_audio_url]
+            "text":  params[:gather_prompt_text]
           },
         "max_input_digits":  params[:max_input_digits],
         "finish_on_key": params[:finish_on_key],
         "input_timeout": params[:input_timeout],
         "repeat_menu": params[:repeat_menu],
         "repeat_gather_prompt": {
-            "text":  params[:repeat_gather_prompt_text],
-            "audio_url": params[:repeat_gather_prompt_audio_url]
+            "text":  params[:repeat_gather_prompt_text]
           }
         }
       end
@@ -143,6 +141,18 @@ module Mock
           else
              status config("passthru_200")["status"]
           end
+      end
+      
+      desc 'Pass  through switch case applet'      
+      get '/passthru_switch_case' do        
+         data = params
+         filename_part = "passthru_applet" || "no-sid-#{Time.now}"
+         File.open("./callback_json/#{filename_part}.json","a+") {|f| f.puts data.to_json}
+         {
+          "select": params[:select],
+          "content-type": "text/plain"
+         } 
+          
       end
 
       desc 'Dumps status to a file. Which can be used later to validate'
