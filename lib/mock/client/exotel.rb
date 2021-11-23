@@ -143,8 +143,9 @@ module Mock
           end
       end
       
-      desc 'Pass  through switch case applet'      
-      get '/passthru_switch_case' do        
+      desc 'Pass through code for delay in response'      
+      get '/passthru_switch_case' do    
+      	 sleep(params[:sleep].to_i)   
          data = params
          filename_part = "passthru_applet" || "no-sid-#{Time.now}"
          File.open("./callback_json/#{filename_part}.json","a+") {|f| f.puts data.to_json}
