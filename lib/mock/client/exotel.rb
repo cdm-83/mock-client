@@ -14,19 +14,22 @@ module Mock
       end
 
       desc 'Gather API'
-      get '/gather/:callSID' do
-        {
-          "gather_prompt": {
-            "text": "Hello Kovalan, please provide your order id",
+      get '/programmable_gather' do
+      data = params
+      filename_part = "gather_applet" || "no-sid-#{Time.now}"
+      File.open("./callback_json/#{filename_part}.json","a+") {|f| f.puts data.to_json}
+       {
+        "gather_prompt": {
+           
+            "audio":  params[:gather_prompt_audio]
+           
           },
-          "callSID": params[:callSID],
-          "from_number": params[:from_number],
-          "max_recording_time": config("gather")["record_time"],
-          "finish_on_key": "#",
-          "input_timeout": 6,
-          "repeat_menu": 2,
-          "repeat_gather_prompt": {
-            "text": "It seems that you have not provided any input, please try again."
+        "max_input_digits":  params[:max_input_digits],
+        "finish_on_key": params[:finish_on_key],
+        "input_timeout": params[:input_timeout],
+        "repeat_menu": params[:repeat_menu],
+        "repeat_gather_prompt": {
+            "audio":  params[:repeat_gather_prompt_audio],
           }
         }
       end
