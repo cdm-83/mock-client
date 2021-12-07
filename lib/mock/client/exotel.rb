@@ -21,7 +21,7 @@ module Mock
        {
         "gather_prompt": {
            
-            "audio":  params[:gather_prompt_audio]
+            "audio_url":  params[:gather_prompt_audio]
            
           },
         "max_input_digits":  params[:max_input_digits],
@@ -29,7 +29,7 @@ module Mock
         "input_timeout": params[:input_timeout],
         "repeat_menu": params[:repeat_menu],
         "repeat_gather_prompt": {
-            "audio":  params[:repeat_gather_prompt_audio],
+            "audio_url":  params[:repeat_gather_prompt_audio],
           }
         }
       end
