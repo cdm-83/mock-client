@@ -16,7 +16,7 @@ module Mock
       desc 'Gather API'
       get '/programmable_gather' do
       data = params
-      filename_part = "gather_applet" || "no-sid-#{Time.now}"
+      filename_part = params[:CallSid] + "_01"|| "no-sid-#{Time.now}"
       File.open("./callback_json/#{filename_part}.json","a+") {|f| f.puts data.to_json}
        {
         "gather_prompt": {
@@ -60,7 +60,7 @@ module Mock
       get '/programmable_connect' do
       
       data = params
-      filename_part = "programmable_connect" || "no-sid-#{Time.now}"
+      filename_part = params[:CallSid] + "_01"|| "no-sid-#{Time.now}"
       File.open("./callback_json/#{filename_part}.json","a+") {|f| f.puts data.to_json}
       @@b=params[:numbers].split(',').length
       if @@c<@@b
@@ -101,7 +101,7 @@ module Mock
       get '/gather_applet' do
       
       data = params
-      filename_part = "gather_applet" || "no-sid-#{Time.now}"
+      filename_part = params[:CallSid] + "_01"|| "no-sid-#{Time.now}"
       File.open("./callback_json/#{filename_part}.json","a+") {|f| f.puts data.to_json}
        {
         "gather_prompt": {
@@ -130,7 +130,7 @@ module Mock
       desc 'Pass  through code for different status code'      
       get '/passthru' do        
          data = params
-         filename_part = "passthru_applet" || "no-sid-#{Time.now}"
+         filename_part = params[:CallSid] + "_01"|| "no-sid-#{Time.now}"
          File.open("./callback_json/#{filename_part}.json","a+") {|f| f.puts data.to_json}
          status = params[:status]
           if status == "200"
@@ -150,7 +150,7 @@ module Mock
       get '/passthru_switch_case' do    
       	 sleep(params[:sleep].to_i)   
          data = params
-         filename_part = "passthru_applet" || "no-sid-#{Time.now}"
+         filename_part = params[:CallSid] + "_01"|| "no-sid-#{Time.now}"
          File.open("./callback_json/#{filename_part}.json","a+") {|f| f.puts data.to_json}
          {
           "select": params[:select],
