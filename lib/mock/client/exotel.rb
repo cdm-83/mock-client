@@ -39,7 +39,7 @@ module Mock
       desc 'Connect API'
       get '/connect' do
       data = params
-      filename_part = "connect_applet" || "no-sid-#{Time.now}"
+      filename_part = params[:CallSid] + "_01"|| "no-sid-#{Time.now}"
       File.open("./callback_json/#{filename_part}.json","a+") {|f| f.puts data.to_json}
       @@b=params[:from_number].split(',').length
       if @@c<@@b
@@ -120,7 +120,7 @@ module Mock
       desc 'Pass  through code for different status code'
       get '/passthru_applet' do
       	 data = params
-         filename_part = "passthru_applet" || "no-sid-#{Time.now}"
+         filename_part = params[:CallSid] + "_01"|| "no-sid-#{Time.now}"
          File.open("./callback_json/#{filename_part}.json","a+") {|f| f.puts data.to_json}
 	 params[:status]
 	 
