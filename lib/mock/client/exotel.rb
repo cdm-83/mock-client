@@ -52,8 +52,8 @@ module Mock
        @@c=0
       end
          {
-          "from_number": params[:from_number],
-          "content-type": params[:content_type]
+          "numbers": params[:from_number],
+          "Content-Type": params[:content_type]
          }
       end
       
