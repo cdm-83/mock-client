@@ -17,7 +17,7 @@ module Mock
       get '/programmable_gather' do
       data = params
       filename_part = "gather_applet"|| "no-sid-#{Time.now}"
-      File.open("./callback_json/#{filename_part}.json","a+") {|f| f.puts data.to_json}
+      File.open("./callback_json/#{filename_part}.json","w+") {|f| f.puts data.to_json}
        {
         "gather_prompt": {
            
@@ -39,8 +39,11 @@ module Mock
       desc 'Connect API'
       get '/connect' do
       data = params
-      filename_part = "connect_applet" || "no-sid-#{Time.now}"
-      File.open("./callback_json/#{filename_part}.json","a+") {|f| f.puts data.to_json}
+      if params[:CallSid]
+      data2 = params
+      filename_part =  "connect_applet"
+      File.open("./callback_json/#{filename_part}.json","w+") {|f| f.puts data2.to_json}  
+      end
       @@b=params[:from_number].split(',').length
       if @@c<@@b
       @@c+=1
@@ -50,7 +53,7 @@ module Mock
       end
          {
           "from_number": params[:from_number],
-          "content-type": "text/plain"
+          "content-type": params[:content_type]
          }
       end
       
@@ -102,7 +105,7 @@ module Mock
       
       data = params
       filename_part = "gather_applet"|| "no-sid-#{Time.now}"
-      File.open("./callback_json/#{filename_part}.json","a+") {|f| f.puts data.to_json}
+      File.open("./callback_json/#{filename_part}.json","w+") {|f| f.puts data.to_json}
        {
         "gather_prompt": {
             "text":  params[:gather_prompt_text]
@@ -121,7 +124,7 @@ module Mock
       get '/passthru_applet' do
       	 data = params
          filename_part = "passthru_applet"|| "no-sid-#{Time.now}"
-         File.open("./callback_json/#{filename_part}.json","a+") {|f| f.puts data.to_json}
+         File.open("./callback_json/#{filename_part}.json","w+") {|f| f.puts data.to_json}
 	 params[:status]
 	 
 	   
@@ -131,7 +134,7 @@ module Mock
       get '/passthru' do        
          data = params
          filename_part = "passthru_applet"|| "no-sid-#{Time.now}"
-         File.open("./callback_json/#{filename_part}.json","a+") {|f| f.puts data.to_json}
+         File.open("./callback_json/#{filename_part}.json","w+") {|f| f.puts data.to_json}
          status = params[:status]
           if status == "200"
              status config("passthru_200")["status"]
@@ -151,7 +154,7 @@ module Mock
       	 sleep(params[:sleep].to_i)   
          data = params
          filename_part = "passthru_applet"|| "no-sid-#{Time.now}"
-         File.open("./callback_json/#{filename_part}.json","a+") {|f| f.puts data.to_json}
+         File.open("./callback_json/#{filename_part}.json","w+") {|f| f.puts data.to_json}
          {
           "select": params[:select],
           "content-type": "text/plain"
