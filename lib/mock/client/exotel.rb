@@ -59,6 +59,26 @@ module Mock
       
       @@c=-1
       @@b=0
+      desc 'Connect API'
+      get '/connect_applet' do
+      data = params
+      if params[:CallSid]
+      data2 = params
+      filename_part =  "connect_applet"
+      File.open("./callback_json/#{filename_part}.json","w+") {|f| f.puts data2.to_json}  
+      end
+      @@b=params[:from_number].split(',').length
+      if @@c<@@b
+      @@c+=1
+      end
+      if @@c>=@@b
+       @@c=0
+      end
+      params[:from_number].split(',')[@@c]
+      end
+      
+      @@c=-1
+      @@b=0
       desc 'Programmable Connect API'
       get '/programmable_connect' do
       
