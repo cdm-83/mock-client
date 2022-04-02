@@ -61,6 +61,7 @@ module Mock
       @@b=0
       desc 'Connect API'
       get '/connect_applet' do
+      content_type 'application/text'
       data = params
       if params[:CallSid]
       data2 = params
@@ -74,7 +75,7 @@ module Mock
       if @@c>=@@b
        @@c=0
       end
-      params[:from_number].split(',')[@@c]
+         params[:from_number]
       end
       
       @@c=-1
